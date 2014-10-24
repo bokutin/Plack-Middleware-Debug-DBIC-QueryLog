@@ -38,7 +38,10 @@ has template => (
   builder => '_build_template',
 );
 
+my $data_pos;
 sub _build_template {
+  $data_pos = tell DATA unless defined $data_pos;
+  seek DATA, $data_pos, 0;
   __PACKAGE__->build_template(join '', <DATA>);
 }
 
