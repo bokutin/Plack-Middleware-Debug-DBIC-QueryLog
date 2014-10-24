@@ -38,11 +38,10 @@ has template => (
   builder => '_build_template',
 );
 
-my $data_pos;
+my $template;
 sub _build_template {
-  $data_pos = tell DATA unless defined $data_pos;
-  seek DATA, $data_pos, 0;
-  __PACKAGE__->build_template(join '', <DATA>);
+  $template ||= join '', <DATA>;
+  __PACKAGE__->build_template($template);
 }
 
 has 'querylog_analyzer_class' => (
